@@ -1,3 +1,5 @@
+using System.Reflection;
+using Microsoft.OpenApi.Models;
 using Wolfpack.Business;
 using Wolfpack.Data.Database;
 
@@ -6,7 +8,25 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.DescribeAllParametersInCamelCase();
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Wolfpack API",
+        Description = "Wolfpack pack manager API",
+        Contact = new OpenApiContact
+        {
+            Name = "Wolfpack IT",
+            Email = "join@wolfpackit.nl",
+            Url = new Uri("https://jointhewolfpack.nl"),
+        },
+    });
+
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+});
 
 builder.Services
     .AddBusiness(builder.Configuration)
