@@ -1,10 +1,14 @@
-var builder = WebApplication.CreateBuilder(args);
+using Wolfpack.Data.Database;
 
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services
+    .AddDatabase(builder.Configuration);
 
 var app = builder.Build();
 
@@ -17,5 +21,8 @@ app.UseSwaggerUI();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app
+    .MigrateDatabase();
 
 app.Run();

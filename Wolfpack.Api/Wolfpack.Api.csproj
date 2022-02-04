@@ -13,4 +13,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Wolfpack.Data.Database\Wolfpack.Data.Database.csproj" />
+  </ItemGroup>
+
 </Project>
