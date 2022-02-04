@@ -7,6 +7,11 @@ namespace Wolfpack.Data.Database.Entities
     {
         public const int MaxNameLength = 64;
 
+        public const int LatitudePrecision = 10;
+        public const int LatitudeScale = 7;
+        public const int LongitudePrecision = 10;
+        public const int LongitudeScale = 7;
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }

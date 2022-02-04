@@ -11,7 +11,10 @@ namespace Wolfpack.Business.Mapping
             CreateMap<Pack, PackModel>(MemberList.Destination);
 
             CreateMap<PackForCreationModel, Pack>(MemberList.Destination)
-                .ForMember(x => x.Id, options => options.Ignore());
+                .ForMember(destination => destination.Id, options => options.Ignore());
+
+            CreateMap<PackForUpdateModel, Pack>(MemberList.Destination)
+                .ForMember(destination => destination.Id, options => options.Ignore());
         }
     }
 }

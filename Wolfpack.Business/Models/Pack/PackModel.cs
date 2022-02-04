@@ -14,6 +14,11 @@
 
     }
 
+    public class PackForUpdateModel : PackForModificationModel
+    {
+
+    }
+
     public class PackModel : PackForModificationModel
     {
         public Guid Id { get; set; }

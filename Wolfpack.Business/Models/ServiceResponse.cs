@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 
 namespace Wolfpack.Business.Models
 {
@@ -35,6 +30,7 @@ namespace Wolfpack.Business.Models
         public T? TargetObject { get; set; }
 
         public static ServiceResponse<T> Fail(ValidationResult validationResult) => new(validationResult);
+        public static ServiceResponse<T> Fail(ServiceResultCode resultCode) => new(resultCode);
         public static ServiceResponse<T> Ok(T value) => new(ServiceResultCode.Ok, value);
         public static ServiceResponse<T> Ok(ServiceResultCode resultCode) => new(resultCode);
         public static ServiceResponse<T> Ok(ServiceResultCode resultCode, T value) => new(resultCode, value);
@@ -43,6 +39,7 @@ namespace Wolfpack.Business.Models
     internal static class ServiceResponse
     {
         public static ServiceResponse<T> Fail<T>(ValidationResult validationResult) => ServiceResponse<T>.Fail(validationResult);
+        public static ServiceResponse<T> Fail<T>(ServiceResultCode resultCode) => ServiceResponse<T>.Fail(resultCode);
         public static ServiceResponse<T> Ok<T>(T value) => ServiceResponse<T>.Ok(value);
         public static ServiceResponse<T> Ok<T>(ServiceResultCode resultCode) => ServiceResponse<T>.Ok(resultCode);
         public static ServiceResponse<T> Ok<T>(ServiceResultCode resultCode, T value) => ServiceResponse<T>.Ok(resultCode, value);

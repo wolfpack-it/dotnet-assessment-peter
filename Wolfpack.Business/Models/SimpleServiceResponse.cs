@@ -20,6 +20,7 @@ namespace Wolfpack.Business.Models
         public ValidationResult? ValidationResult { get; set; }
 
         public static SimpleServiceResponse Fail(ValidationResult validationResult) => new(validationResult);
+        public static SimpleServiceResponse Fail(ServiceResultCode serviceResultCode) => new(serviceResultCode);
 
         public static SimpleServiceResponse Ok = new(ServiceResultCode.Ok);
     }

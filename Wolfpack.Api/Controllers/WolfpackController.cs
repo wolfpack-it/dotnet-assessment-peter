@@ -9,8 +9,8 @@ public abstract class WolfpackController : ControllerBase
     {
         return serviceResponse.ServiceResultCode switch
         {
-            ServiceResultCode.Ok when serviceResponse.TargetObject is null => NoContent(),
-            ServiceResultCode.Ok when serviceResponse.TargetObject is not null => Ok(serviceResponse.TargetObject),
+            ServiceResultCode.Ok => Ok(serviceResponse.TargetObject),
+            ServiceResultCode.Created => throw new InvalidOperationException($"{ServiceResultCode.Created} is not supported. Please create the ActionResult manually."),
             ServiceResultCode.NotFound => NotFound(),
             ServiceResultCode.ValidationError => BadRequest(serviceResponse.ValidationResult),
             ServiceResultCode.Conflict => Conflict(),
@@ -23,6 +23,7 @@ public abstract class WolfpackController : ControllerBase
         return serviceResponse.ServiceResultCode switch
         {
             ServiceResultCode.Ok => NoContent(),
+            ServiceResultCode.Created => NoContent(),
             ServiceResultCode.NotFound => NotFound(),
             ServiceResultCode.ValidationError => BadRequest(serviceResponse.ValidationResult),
             ServiceResultCode.Conflict => Conflict(),
