@@ -24,7 +24,6 @@ public abstract class WolfpackController : ControllerBase
                 $"{ServiceResultCode.Created} is not supported. Please create the ActionResult manually."),
             ServiceResultCode.NotFound => NotFound(),
             ServiceResultCode.ValidationError => BadRequest(serviceResponse.ValidationResult),
-            ServiceResultCode.Conflict => Conflict(),
             _ => throw new InvalidOperationException("Server Error: Unexpected service response")
         };
     }
@@ -43,7 +42,6 @@ public abstract class WolfpackController : ControllerBase
             ServiceResultCode.Created => NoContent(),
             ServiceResultCode.NotFound => NotFound(),
             ServiceResultCode.ValidationError => BadRequest(serviceResponse.ValidationResult),
-            ServiceResultCode.Conflict => Conflict(),
             _ => throw new InvalidOperationException("Server Error: Unexpected service response")
         };
     }

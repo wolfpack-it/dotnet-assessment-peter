@@ -4,35 +4,24 @@ using Wolfpack.Data.Database.Entities;
 
 namespace Wolfpack.Business.Validation;
 
-internal class PackForModificationValidator<T> : AbstractValidator<T>
+internal abstract class PackForModificationValidator<T> : AbstractValidator<T>
     where T : PackForModificationModel
 {
-    private const int MinimumLatitude = -90;
-    private const int MaximumLatitude = +90;
-
-    private const int MinimumLongitude = -180;
-    private const int MaximumLongitude = +180;
-
-    public PackForModificationValidator()
+    protected PackForModificationValidator()
     {
         RuleFor(x => x.Name)
             .NotEmpty()
-            .MaximumLength(Pack.MaxNameLength);
+            .MaximumLength(Pack.MaxNameLength)
+            .Must(BeUnique).WithMessage(model => $"The pack name must be unique. A pack with the name {model.Name} already exists.");
 
         RuleFor(x => x.Latitude)
-            .InclusiveBetween(MinimumLatitude, MaximumLatitude)
+            .InclusiveBetween(Pack.MinimumLatitude, Pack.MaximumLatitude)
             .ScalePrecision(Pack.LatitudeScale, Pack.LatitudePrecision);
 
         RuleFor(x => x.Longitude)
-            .InclusiveBetween(MinimumLongitude, MaximumLongitude)
+            .InclusiveBetween(Pack.MinimumLongitude, Pack.MaximumLongitude)
             .ScalePrecision(Pack.LongitudeScale, Pack.LongitudePrecision);
     }
-}
 
-internal class PackForUpdateModelValidator : PackForModificationValidator<PackForUpdateModel>
-{
-}
-
-internal class PackForCreationValidator : PackForModificationValidator<PackForCreationModel>
-{
+    protected abstract bool BeUnique(T model, string name);
 }

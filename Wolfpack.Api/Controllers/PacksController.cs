@@ -61,7 +61,6 @@ public sealed class PacksController : WolfpackController
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(PackModel))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<IActionResult> Create(PackForCreationModel forCreationModel)
     {
         var result = await _packService.Create(forCreationModel);
@@ -84,7 +83,6 @@ public sealed class PacksController : WolfpackController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PackModel))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<IActionResult> Update([Required] Guid id, [FromBody][Required] PackForUpdateModel forUpdate)
     {
         return GetActionResult(await _packService.Update(id, forUpdate));

@@ -48,20 +48,13 @@ internal class PackService : IPackService
 
     public async Task<IServiceResponse<PackModel>> Create(PackForCreationModel forCreationModel)
     {
-        var validator = new PackForCreationValidator();
+        var validator = new PackForCreationValidator(_context);
 
         var validationResult = await validator.ValidateAsync(forCreationModel);
 
         if (!validationResult.IsValid)
         {
             return ServiceResponse.Fail<PackModel>(validationResult);
-        }
-
-        var doesNameAlreadyExist = _context.Packs.Any(x => x.Name == forCreationModel.Name);
-
-        if (doesNameAlreadyExist)
-        {
-            return ServiceResponse.Fail<PackModel>(ServiceResultCode.Conflict);
         }
 
         var entity = _mapper.Map<PackForCreationModel, Pack>(forCreationModel);
@@ -77,7 +70,7 @@ internal class PackService : IPackService
 
     public async Task<IServiceResponse<PackModel>> Update(Guid packId, PackForUpdateModel forUpdateModel)
     {
-        var validator = new PackForUpdateModelValidator();
+        var validator = new PackForUpdateModelValidator(_context, packId);
 
         var validationResult = await validator.ValidateAsync(forUpdateModel);
 

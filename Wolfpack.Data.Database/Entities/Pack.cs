@@ -9,8 +9,14 @@ public class Pack
 
     public const int LatitudePrecision = 10;
     public const int LatitudeScale = 7;
+    public const int MinimumLatitude = -90;
+    public const int MaximumLatitude = +90;
+
     public const int LongitudePrecision = 10;
     public const int LongitudeScale = 7;
+    public const int MinimumLongitude = -180;
+    public const int MaximumLongitude = +180;
+
 
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
