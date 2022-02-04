@@ -1,7 +1,7 @@
 version: "3.9"
 services:
     web:
-        container_name: wolfpack
+        container_name: wolfpack_api
         build: .
         ports:
             - "80:80"
@@ -12,7 +12,10 @@ services:
             ConnectionStrings__Database: "Server=db;Database=wolfpack;User=sa;Password=JoinTheWolfPackIn2022!"
 
     db:
+        container_name: wolfpack_db
         image: "mcr.microsoft.com/mssql/server"
         environment:
             SA_PASSWORD: "JoinTheWolfPackIn2022!"
             ACCEPT_EULA: "Y"
+        ports:
+        - 1433:1433
