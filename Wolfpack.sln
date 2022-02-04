@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wolfpack.Api", "Wolfpack.Api\Wolfpack.Api.csproj", "{E11406A7-70EE-45CB-A798-0599A39AF539}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wolfpack.Business", "Wolfpack.Business\Wolfpack.Business.csproj", "{700C098F-1718-479D-BAFF-38E52D394C73}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wolfpack.Data.Database", "Wolfpack.Data.Database\Wolfpack.Data.Database.csproj", "{0FCC6450-11B6-406F-8B01-5E6964A86ECC}"
 EndProject
 Global
@@ -17,6 +19,10 @@ Global
 		{E11406A7-70EE-45CB-A798-0599A39AF539}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E11406A7-70EE-45CB-A798-0599A39AF539}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E11406A7-70EE-45CB-A798-0599A39AF539}.Release|Any CPU.Build.0 = Release|Any CPU
+		{700C098F-1718-479D-BAFF-38E52D394C73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{700C098F-1718-479D-BAFF-38E52D394C73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{700C098F-1718-479D-BAFF-38E52D394C73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{700C098F-1718-479D-BAFF-38E52D394C73}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0FCC6450-11B6-406F-8B01-5E6964A86ECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0FCC6450-11B6-406F-8B01-5E6964A86ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FCC6450-11B6-406F-8B01-5E6964A86ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU

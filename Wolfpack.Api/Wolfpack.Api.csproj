@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Wolfpack.Business\Wolfpack.Business.csproj" />
     <ProjectReference Include="..\Wolfpack.Data.Database\Wolfpack.Data.Database.csproj" />
   </ItemGroup>
 
