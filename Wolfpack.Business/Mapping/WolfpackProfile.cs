@@ -2,19 +2,18 @@
 using Wolfpack.Business.Models.Pack;
 using Wolfpack.Data.Database.Entities;
 
-namespace Wolfpack.Business.Mapping
+namespace Wolfpack.Business.Mapping;
+
+internal class WolfpackProfile : Profile
 {
-    internal class WolfpackProfile : Profile
+    public WolfpackProfile()
     {
-        public WolfpackProfile()
-        {
-            CreateMap<Pack, PackModel>(MemberList.Destination);
+        CreateMap<Pack, PackModel>(MemberList.Destination);
 
-            CreateMap<PackForCreationModel, Pack>(MemberList.Destination)
-                .ForMember(destination => destination.Id, options => options.Ignore());
+        CreateMap<PackForCreationModel, Pack>(MemberList.Destination)
+            .ForMember(destination => destination.Id, options => options.Ignore());
 
-            CreateMap<PackForUpdateModel, Pack>(MemberList.Destination)
-                .ForMember(destination => destination.Id, options => options.Ignore());
-        }
+        CreateMap<PackForUpdateModel, Pack>(MemberList.Destination)
+            .ForMember(destination => destination.Id, options => options.Ignore());
     }
 }

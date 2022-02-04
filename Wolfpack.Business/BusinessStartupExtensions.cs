@@ -3,17 +3,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Wolfpack.Business.Interface;
 using Wolfpack.Business.Services;
 
-namespace Wolfpack.Business
+namespace Wolfpack.Business;
+
+public static class BusinessStartupExtensions
 {
-    public static class BusinessStartupExtensions
+    public static IServiceCollection AddBusiness(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddBusiness(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddScoped<IPackService, PackService>();
+        services.AddScoped<IPackService, PackService>();
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            return services;
-        }
+        return services;
     }
 }
