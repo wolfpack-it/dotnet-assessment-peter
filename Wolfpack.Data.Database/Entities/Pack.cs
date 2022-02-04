@@ -16,9 +16,9 @@ namespace Wolfpack.Data.Database.Entities
         public string Name { get; set; } = null!;
 
         [Required]
-        public float Latitude { get; set; }
+        public decimal Latitude { get; set; }
 
         [Required]
-        public float Longitude { get; set; }
+        public decimal Longitude { get; set; }
     }
 }

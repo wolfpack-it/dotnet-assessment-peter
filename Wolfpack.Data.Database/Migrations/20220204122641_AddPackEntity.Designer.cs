@@ -12,7 +12,7 @@ using Wolfpack.Data.Database;
 namespace Wolfpack.Data.Database.Migrations
 {
     [DbContext(typeof(WolfpackContext))]
-    [Migration("20220204105618_AddPackEntity")]
+    [Migration("20220204122641_AddPackEntity")]
     partial class AddPackEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,13 +30,13 @@ namespace Wolfpack.Data.Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<float>("Latitude")
+                    b.Property<decimal>("Latitude")
                         .HasPrecision(10, 7)
-                        .HasColumnType("real(10)");
+                        .HasColumnType("decimal(10,7)");
 
-                    b.Property<float>("Longitude")
+                    b.Property<decimal>("Longitude")
                         .HasPrecision(10, 7)
-                        .HasColumnType("real(10)");
+                        .HasColumnType("decimal(10,7)");
 
                     b.Property<string>("Name")
                         .IsRequired()

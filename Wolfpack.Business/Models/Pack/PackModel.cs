@@ -4,9 +4,9 @@
     {
         public string Name { get; set; } = null!;
 
-        public float Latitude { get; set; }
+        public decimal Latitude { get; set; }
 
-        public float Longitude { get; set; }
+        public decimal Longitude { get; set; }
     }
 
     public class PackForCreationModel : PackForModificationModel

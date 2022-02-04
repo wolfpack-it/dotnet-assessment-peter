@@ -15,8 +15,8 @@ namespace Wolfpack.Data.Database.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    Latitude = table.Column<float>(type: "real(10)", precision: 10, scale: 7, nullable: false),
-                    Longitude = table.Column<float>(type: "real(10)", precision: 10, scale: 7, nullable: false)
+                    Latitude = table.Column<decimal>(type: "decimal(10,7)", precision: 10, scale: 7, nullable: false),
+                    Longitude = table.Column<decimal>(type: "decimal(10,7)", precision: 10, scale: 7, nullable: false)
                 },
                 constraints: table =>
                 {
