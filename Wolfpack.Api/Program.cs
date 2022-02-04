@@ -20,8 +20,6 @@ app.UseSwaggerUI();
 // HTTPS redirection is off in this project but should be turned on in production.
 // app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.MapControllers();
 
 app
