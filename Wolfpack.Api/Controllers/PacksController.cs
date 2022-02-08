@@ -65,9 +65,12 @@ public sealed class PacksController : WolfpackController
     {
         var result = await _packService.Create(forCreationModel);
 
-        if (result.ServiceResultCode != ServiceResultCode.Created) return GetActionResult(result);
+        if (result.ServiceResultCode != ServiceResultCode.Created)
+        {
+            return GetActionResult(result);
+        }
 
-        return Created(nameof(Get), result.TargetObject);
+        return CreatedAtAction(nameof(Get), new { id = result.TargetObject!.Id }, result.TargetObject);
     }
 
     /// <summary>
