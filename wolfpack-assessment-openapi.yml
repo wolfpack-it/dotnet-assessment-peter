@@ -1,0 +1,731 @@
+---
+openapi: 3.0.1
+info:
+  title: Wolfpack API
+  description: Wolfpack pack manager API
+  contact:
+    name: Wolfpack IT
+    url: https://jointhewolfpack.nl
+    email: join@wolfpackit.nl
+  version: v1
+paths:
+  "/Wolves":
+    get:
+      tags:
+      - Wolves
+      summary: Gets a list of all the wolves.
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/WolfModel"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/WolfModel"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/WolfModel"
+    post:
+      tags:
+      - Wolves
+      summary: Creates a new wolf.
+      description: The name of the wolf must be unique.
+      requestBody:
+        description: The model with which to create the pack.
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/WolfForCreationModel"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/WolfForCreationModel"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/WolfForCreationModel"
+      responses:
+        '201':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/WolfModel"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/WolfModel"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/WolfModel"
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ValidationResult"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ValidationResult"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ValidationResult"
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+  "/Wolves/{id}":
+    get:
+      tags:
+      - Wolves
+      summary: Gets a specific Wolf by id.
+      parameters:
+      - name: id
+        in: path
+        description: The id of the Wolf to retrieve.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/WolfWithPacksModel"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/WolfWithPacksModel"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/WolfWithPacksModel"
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+    put:
+      tags:
+      - Wolves
+      summary: Updates an existing Wolf.
+      description: The name of the Wolf must be unique.
+      parameters:
+      - name: id
+        in: path
+        description: The id of the Wolf to update.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The model with which to update the Wolf.
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/WolfForUpdateModel"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/WolfForUpdateModel"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/WolfForUpdateModel"
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/WolfModel"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/WolfModel"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/WolfModel"
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ValidationResult"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ValidationResult"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ValidationResult"
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+    delete:
+      tags:
+      - Wolves
+      summary: Deletes a Wolf.
+      parameters:
+      - name: id
+        in: path
+        description: The id of the Wolf to delete.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails" 
+  "/Packs":
+    get:
+      tags:
+      - Packs
+      summary: Gets a list of all the packs.
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/PackModel"
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/PackModel"
+            text/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/PackModel"
+    post:
+      tags:
+      - Packs
+      summary: Creates a new pack.
+      description: The name of the pack must be unique.
+      requestBody:
+        description: The model with which to create the pack.
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PackForCreationModel"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/PackForCreationModel"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/PackForCreationModel"
+      responses:
+        '201':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/PackModel"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PackModel"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/PackModel"
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ValidationResult"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ValidationResult"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ValidationResult"
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+  "/Packs/{id}":
+    get:
+      tags:
+      - Packs
+      summary: Gets a specific pack by id.
+      parameters:
+      - name: id
+        in: path
+        description: The id of the pack to retrieve.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/PackWithWolvesModel"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PackWithWolvesModel"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/PackWithWolvesModel"
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+    put:
+      tags:
+      - Packs
+      summary: Updates an existing pack.
+      description: The name of the pack must be unique.
+      parameters:
+      - name: id
+        in: path
+        description: The id of the pack to update.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The model with which to update the pack.
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PackForUpdateModel"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/PackForUpdateModel"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/PackForUpdateModel"
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/PackModel"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PackModel"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/PackModel"
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ValidationResult"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ValidationResult"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ValidationResult"
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+    delete:
+      tags:
+      - Packs
+      summary: Deletes a pack.
+      parameters:
+      - name: id
+        in: path
+        description: The id of the pack to delete.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '204':
+          description: Success
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+  "/Packs/{id}/wolves": 
+    put:
+      tags:
+      - Packs
+      summary: Adds a Wolf to a Pack.
+      description: The name of the pack must be unique.
+      parameters:
+      - name: id
+        in: path
+        description: The id of the pack to add wolves to.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: A model specifying the exxact Wolf to add to the pack.
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/AddWolfToPackModel"
+          text/json:
+            schema:
+              "$ref": "#/components/schemas/AddWolfToPackModel"
+          application/*+json:
+            schema:
+              "$ref": "#/components/schemas/AddWolfToPackModel"
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/PackWithWolvesModel"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PackWithWolvesModel"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/PackWithWolvesModel"
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ValidationResult"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ValidationResult"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ValidationResult"
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+  "/Packs/{id}/wolves/{wolf_id}": 
+    delete:
+      tags:
+      - Packs
+      summary: Removes a wolf from a pack
+      parameters:
+      - name: id
+        in: path
+        description: The id of the pack to remove wolves from.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: wolf_id
+        in: path
+        description: The id of the wolf to remove.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: success
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/PackWithWolvesModel"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PackWithWolvesModel"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/PackWithWolvesModel"
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ValidationResult"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ValidationResult"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ValidationResult"
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails"
+            text/json:
+              schema:
+                "$ref": "#/components/schemas/ProblemDetails" 
+components:
+  schemas:
+    PackForCreationModel:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PackForUpdateModel:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PackModel:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        id:
+          type: string
+          format: uuid
+      additionalProperties: false
+    PackWithWolvesModel:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        id: 
+          type: string
+          format: uuid
+        wolves:
+          type: array
+          items:
+            $ref: '#/components/schemas/WolfModel'
+      additionalProperties: false
+    WolfForCreationModel:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        gender:
+          type: string
+          enum: ['male', 'female', 'other']
+      additionalProperties: false
+    WolfForUpdateModel:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        gender:
+          type: string
+          enum: ['male', 'female', 'other']
+      additionalProperties: false
+    WolfModel:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        gender:
+          type: string
+          enum: ['male', 'female', 'other']
+        id:
+          type: string
+          format: uuid
+    WolfWithPacksModel:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        latitues:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        gender:
+          type: string
+          enum: ['male', 'female', 'other']
+        id:
+          type: string
+          format: uuid
+        packs:
+          type: array
+          items:
+            $ref: '#/components/schemas/PackModel'
+    AddWolfToPackModel:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: {}
+    Severity:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
+    ValidationFailure:
+      type: object
+      properties:
+        propertyName:
+          type: string
+          nullable: true
+        errorMessage:
+          type: string
+          nullable: true
+        attemptedValue:
+          nullable: true
+        customState:
+          nullable: true
+        severity:
+          "$ref": "#/components/schemas/Severity"
+        errorCode:
+          type: string
+          nullable: true
+        formattedMessagePlaceholderValues:
+          type: object
+          additionalProperties: {}
+          nullable: true
+      additionalProperties: false
+    ValidationResult:
+      type: object
+      properties:
+        isValid:
+          type: boolean
+          readOnly: true
+        errors:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ValidationFailure"
+          nullable: true
+          readOnly: true
+        ruleSetsExecuted:
+          type: array
+          items:
+            type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
