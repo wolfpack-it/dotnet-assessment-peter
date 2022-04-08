@@ -10,8 +10,5 @@ internal class PackConfiguration : IEntityTypeConfiguration<Pack>
     {
         builder.HasIndex(x => x.Name)
             .IsUnique();
-
-        builder.Property(x => x.Latitude).HasPrecision(Pack.LatitudePrecision, Pack.LatitudeScale);
-        builder.Property(x => x.Longitude).HasPrecision(Pack.LongitudePrecision, Pack.LongitudeScale);
     }
 }

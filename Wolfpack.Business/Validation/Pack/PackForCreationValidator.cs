@@ -1,7 +1,7 @@
 ﻿using Wolfpack.Business.Models.Pack;
 using Wolfpack.Data.Database;
 
-namespace Wolfpack.Business.Validation;
+namespace Wolfpack.Business.Validation.Pack;
 
 internal sealed class PackForCreationValidator : PackForModificationValidator<PackForCreationModel>
 {

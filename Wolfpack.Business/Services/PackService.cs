@@ -5,6 +5,7 @@ using Wolfpack.Business.Interface;
 using Wolfpack.Business.Models;
 using Wolfpack.Business.Models.Pack;
 using Wolfpack.Business.Validation;
+using Wolfpack.Business.Validation.Pack;
 using Wolfpack.Data.Database;
 using Wolfpack.Data.Database.Entities;
 
