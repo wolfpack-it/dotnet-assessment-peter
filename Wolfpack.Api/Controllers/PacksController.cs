@@ -103,4 +103,31 @@ public sealed class PacksController : WolfpackController
     {
         return GetActionResult(await _packService.Delete(id));
     }
+
+    /// <summary>
+    /// Deletes a wolf from a pack.
+    /// </summary>
+    /// <param name="id">The id of the pack to delete.</param>
+    /// <returns></returns>
+    [HttpDelete("{id:guid}/wolves/{wolf_id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteWolfFromPack([Required] Guid id, [Required] Guid wolf_id)
+    {
+        return GetActionResult(await _packService.DeleteWolfFromPack(id, wolf_id));
+    }
+
+    /// <summary>
+    /// Add a wolf to a pack.
+    /// </summary>
+    /// <param name="id">The id of the pack to add.</param>
+    /// <returns></returns>
+    [HttpPut("{id:guid}/wolves/{wolf_id:guid}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PackWithWolvesModel))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationResult))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> AddWolfToPack([Required] Guid id, [Required] Guid wolf_id)
+    {
+        return GetActionResult(await _packService.AddWolfToPack(id, wolf_id));
+    }
 }

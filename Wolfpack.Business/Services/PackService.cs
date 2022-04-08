@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Wolfpack.Business.Interface;
 using Wolfpack.Business.Models;
 using Wolfpack.Business.Models.Pack;
-using Wolfpack.Business.Validation;
 using Wolfpack.Business.Validation.Pack;
 using Wolfpack.Data.Database;
 using Wolfpack.Data.Database.Entities;
@@ -32,16 +31,17 @@ internal class PackService : IPackService
         return ServiceResponse.Ok<IReadOnlyList<PackModel>>(packs);
     }
 
-    public async Task<IServiceResponse<PackModel>> GetById(Guid packId)
+    public async Task<IServiceResponse<PackWithWolvesModel>> GetById(Guid packId)
     {
         var pack = await _context.Packs
             .AsNoTracking()
-            .ProjectTo<PackModel>(_mapper.ConfigurationProvider)
+            .Include(x => x.Wolves)
+            .ProjectTo<PackWithWolvesModel>(_mapper.ConfigurationProvider)
             .FirstOrDefaultAsync(x => x.Id == packId);
 
         if (pack is null)
         {
-            return ServiceResponse.Fail<PackModel>(ServiceResultCode.NotFound);
+            return ServiceResponse.Fail<PackWithWolvesModel>(ServiceResultCode.NotFound);
         }
 
         return ServiceResponse.Ok(pack);
@@ -110,5 +110,56 @@ internal class PackService : IPackService
         await _context.SaveChangesAsync();
 
         return SimpleServiceResponse.Ok;
+    }
+
+    public async Task<IServiceResponse<PackWithWolvesModel>> AddWolfToPack(Guid packId, Guid wolfId)
+    {
+        var addWolfToPackModel = new AddWolfToPackModel { Id = wolfId };
+        var validator = new PackForAddWolfToPackModelValidator(_context, packId);
+
+        var validationResult = await validator.ValidateAsync(addWolfToPackModel);
+
+        if (!validationResult.IsValid)
+        {
+            return ServiceResponse.Fail<PackWithWolvesModel>(validationResult);
+        }
+
+        var entity = await _context.Packs.FirstOrDefaultAsync(x => x.Id == packId);
+        var wolf = await _context.Wolves.FirstOrDefaultAsync(x => x.Id == wolfId);
+
+        if (entity is null || wolf is null)
+        {
+            return ServiceResponse.Fail<PackWithWolvesModel>(ServiceResultCode.NotFound);
+        }
+
+        entity.Wolves.Add(wolf);
+
+        await _context.SaveChangesAsync();
+
+        var model = _mapper.Map<Pack, PackWithWolvesModel>(entity);
+
+        return ServiceResponse.Ok(model);
+    }
+
+    public async Task<IServiceResponse<PackWithWolvesModel>> DeleteWolfFromPack(Guid packId, Guid wolfId)
+    {
+        var entity = await _context.Packs.Include(x => x.Wolves)
+            .Where(x => x.Wolves.Any(w => w.Id == wolfId))
+            .FirstOrDefaultAsync(x => x.Id == packId);
+
+        if (entity is null)
+        {
+            return ServiceResponse.Fail<PackWithWolvesModel>(ServiceResultCode.NotFound);
+        }
+
+        var wolf = entity.Wolves.Single(x => x.Id == wolfId);
+
+        wolf.Packs.Remove(entity);
+
+        await _context.SaveChangesAsync();
+
+        var model = _mapper.Map<Pack, PackWithWolvesModel>(entity);
+
+        return ServiceResponse.Ok(model);
     }
 }

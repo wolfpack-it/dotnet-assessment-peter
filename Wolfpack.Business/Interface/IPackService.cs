@@ -7,11 +7,15 @@ public interface IPackService
 {
     Task<IServiceResponse<IReadOnlyList<PackModel>>> GetAll();
 
-    Task<IServiceResponse<PackModel>> GetById(Guid packId);
+    Task<IServiceResponse<PackWithWolvesModel>> GetById(Guid packId);
 
     Task<IServiceResponse<PackModel>> Create(PackForCreationModel forCreationModel);
 
     Task<IServiceResponse<PackModel>> Update(Guid packId, PackForUpdateModel forUpdate);
 
     Task<ISimpleServiceResponse> Delete(Guid packId);
+
+    Task<IServiceResponse<PackWithWolvesModel>> AddWolfToPack(Guid packId, Guid wolfId);
+
+    Task<IServiceResponse<PackWithWolvesModel>> DeleteWolfFromPack(Guid packId, Guid wolfId);
 }
