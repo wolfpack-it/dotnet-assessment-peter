@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Wolfpack.Business.Interface;
 using Wolfpack.Business.Models;
-using Wolfpack.Business.Models.Pack;
 using Wolfpack.Business.Models.Wolf;
 using ValidationResult = FluentValidation.Results.ValidationResult;
 
@@ -85,7 +84,7 @@ public class WolvesController : WolfpackController
     /// <param name="forUpdate">The model with which to update the wolf.</param>
     /// <returns>The newly updated wolf.</returns>
     [HttpPut("{id:guid}")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PackModel))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WolfModel))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update([Required] Guid id, [FromBody][Required] WolfForUpdateModel forUpdate)

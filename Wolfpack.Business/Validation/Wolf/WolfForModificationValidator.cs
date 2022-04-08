@@ -16,6 +16,7 @@ internal abstract class WolfForModificationValidator<T> : AbstractValidator<T>
 
         RuleFor(x => x.Gender)
             .IsInEnum()
+            .NotEmpty()
             .WithMessage("Invalid gender specified.");
 
         RuleFor(x => x.Latitude)

@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
 using Wolfpack.Api.Filters;
 using Wolfpack.Business;
@@ -6,12 +7,16 @@ using Wolfpack.Data.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    //options.JsonSerializerOptions.Converters.Add(new //new NullableGenderConverter());
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.DescribeAllParametersInCamelCase();
+    options.DescribeAllParametersInCamelCase(); 
     options.SchemaFilter<EnumSchemaFilter>();
 
     options.SwaggerDoc("v1", new OpenApiInfo
@@ -45,7 +50,6 @@ app.UseSwaggerUI();
 
 app.MapControllers();
 
-app
-    .MigrateDatabase();
+app.MigrateDatabase();
 
 app.Run();

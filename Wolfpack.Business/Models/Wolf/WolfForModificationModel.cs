@@ -1,4 +1,7 @@
-﻿using Wolfpack.Data.Database.Enums;
+﻿
+using System.Text.Json.Serialization;
+using Wolfpack.Business.Converters;
+using Wolfpack.Data.Database.Enums;
 
 namespace Wolfpack.Business.Models.Wolf;
 
@@ -10,5 +13,6 @@ public class WolfForModificationModel
 
     public decimal Longitude { get; set; }
 
-    public Gender Gender { get; set; }
+    [JsonConverter(typeof(JsonNullableEnumStringConverter<Gender?>))]
+    public Gender? Gender { get; set; }
 }
