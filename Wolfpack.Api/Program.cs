@@ -1,5 +1,6 @@
 using System.Reflection;
 using Microsoft.OpenApi.Models;
+using Wolfpack.Api.Filters;
 using Wolfpack.Business;
 using Wolfpack.Data.Database;
 
@@ -11,6 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
     options.DescribeAllParametersInCamelCase();
+    options.SchemaFilter<EnumSchemaFilter>();
+
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",

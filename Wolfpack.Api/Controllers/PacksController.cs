@@ -126,8 +126,8 @@ public sealed class PacksController : WolfpackController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PackWithWolvesModel))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> AddWolfToPack([Required] Guid id, [Required] Guid wolf_id)
+    public async Task<IActionResult> AddWolfToPack([Required] Guid id, [FromBody][Required]AddWolfToPackModel model)//[Required] Guid wolf_id)
     {
-        return GetActionResult(await _packService.AddWolfToPack(id, wolf_id));
+        return GetActionResult(await _packService.AddWolfToPack(id, model.Id)); //wolf_id));
     }
 }
