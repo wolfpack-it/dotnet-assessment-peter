@@ -107,11 +107,13 @@ public sealed class PacksController : WolfpackController
     /// <summary>
     /// Deletes a wolf from a pack.
     /// </summary>
-    /// <param name="id">The id of the pack to delete.</param>
+    /// <param name="id">The id of the pack that the wolf is part of</param>
+    /// <param name="wolf_id">The id of the wolf that needs </param>
     /// <returns></returns>
     [HttpDelete("{id:guid}/wolves/{wolf_id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    // ReSharper disable once InconsistentNaming
     public async Task<IActionResult> DeleteWolfFromPack([Required] Guid id, [Required] Guid wolf_id)
     {
         return GetActionResult(await _packService.DeleteWolfFromPack(id, wolf_id));
