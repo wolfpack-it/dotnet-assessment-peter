@@ -141,7 +141,7 @@ internal class PackService : IPackService
         return ServiceResponse.Ok(model);
     }
 
-    public async Task<IServiceResponse<PackWithWolvesModel>> DeleteWolfFromPack(Guid packId, Guid wolfId)
+    public async Task<IServiceResponse<PackWithWolvesModel>> RemoveWolfFromPack(Guid packId, Guid wolfId)
     {
         var entity = await _context.Packs.Include(x => x.Wolves)
             .Where(x => x.Wolves.Any(w => w.Id == wolfId))

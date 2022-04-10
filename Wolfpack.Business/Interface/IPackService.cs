@@ -17,5 +17,5 @@ public interface IPackService
 
     Task<IServiceResponse<PackWithWolvesModel>> AddWolfToPack(Guid packId, Guid wolfId);
 
-    Task<IServiceResponse<PackWithWolvesModel>> DeleteWolfFromPack(Guid packId, Guid wolfId);
+    Task<IServiceResponse<PackWithWolvesModel>> RemoveWolfFromPack(Guid packId, Guid wolfId);
 }
