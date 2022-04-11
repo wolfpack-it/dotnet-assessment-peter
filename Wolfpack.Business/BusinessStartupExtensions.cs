@@ -10,6 +10,7 @@ public static class BusinessStartupExtensions
     public static IServiceCollection AddBusiness(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IPackService, PackService>();
+        services.AddScoped<IWolfService, WolfService>();
 
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
